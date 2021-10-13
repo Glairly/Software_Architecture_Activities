@@ -13,7 +13,7 @@ public abstract class BookMetadataExporter extends BookCollection {
         for(var book : books){
             formatter.append(book);
         }
-        System.out.print(formatter.getMetadataString());
+        stream.print(formatter.getMetadataString());
     }
 
 
