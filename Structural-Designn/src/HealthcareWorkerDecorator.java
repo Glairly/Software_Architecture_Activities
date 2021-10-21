@@ -1,6 +1,6 @@
 public abstract class HealthcareWorkerDecorator extends HealthcareWorker {
 
-    private HealthcareServiceable worker;
+    protected HealthcareServiceable worker;
 
     public HealthcareWorkerDecorator(HealthcareWorker worker) {
         super(worker);

@@ -42,9 +42,5 @@ public class Main {
         healthcareSeries.addMember(teamMedicalDragon);
         healthcareSeries.addMember(theGoodDoctor);
         System.out.println("The total price of the healthcare series is " + healthcareSeries.getPrice());
-
-        System.out.println("================================");
-        System.out.println("Emergency Call!! Everyone get to work.");
-        healthcareSeries.service();
     }
 }

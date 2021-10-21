@@ -1,4 +1,4 @@
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class HealthcareWorkerTeam implements HealthcareServiceable {
@@ -6,7 +6,7 @@ public class HealthcareWorkerTeam implements HealthcareServiceable {
     private Set<HealthcareServiceable> members;
 
     public HealthcareWorkerTeam(){
-        members = new HashSet<>();
+        members = new LinkedHashSet<>();
     };
 
     public void addMember(HealthcareServiceable worker){
