@@ -1,27 +1,26 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Flow;
 
 public class StringPublisher implements Flow.Publisher {
 
-    private final List<Flow.Subscriber<String> > subscribers;
+    private final List<StringSubscription> subscribers;
 
     private String state;
 
-    public StringPublisher(){
-        this.subscribers = new ArrayList<>();
-    }
 
-    public StringPublisher(List<Flow.Subscriber<String>> subscribers) {
-        this.subscribers = subscribers;
+    public StringPublisher() {
+        this.subscribers = new ArrayList<>();
     }
 
 
     @Override
     public void subscribe(Flow.Subscriber subscriber) {
         if(subscriber == null || subscribers.contains(subscriber))  subscriber.onError(new IllegalStateException());
-        subscribers.add(subscriber);
-        subscriber.onSubscribe(new StringSubscription(subscriber));
+        var s = new StringSubscription(subscriber);
+        subscribers.add(s);
+        subscriber.onSubscribe(s);
     }
 
     public void unsubscribe(Flow.Subscriber subscriber) {
@@ -35,9 +34,9 @@ public class StringPublisher implements Flow.Publisher {
 
     public void notifySubscribers(){
         for(var sub : subscribers){
-//            sub.update()
-            sub.onNext(this.state);
-            sub.onComplete();
+              sub.updates(state);
+//            sub.onNext(this.state);
+//            sub.onComplete();
         }
     }
 }

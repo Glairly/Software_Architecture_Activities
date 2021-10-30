@@ -2,20 +2,28 @@ import java.util.concurrent.Flow;
 
 public class StringSubscription implements Flow.Subscription {
 
-    private Flow.Subscriber subscriber;
+    private final Flow.Subscriber subscriber;
 
     private boolean status;
 
     StringSubscription(Flow.Subscriber subscriber) {
         this.subscriber = subscriber;
+        this.status = true;
+    }
+
+    public void updates(Object item){
+        if(subscriber != null)
+            subscriber.onNext(item);
     }
 
     @Override
     public void request(long n) {
+        if(!status) return;
+
         if (n < 0) {
             subscriber.onError(new IllegalArgumentException());
         } else {
-            status = true;
+//            if use async method this field should start observer
         }
     }
 
@@ -23,4 +31,6 @@ public class StringSubscription implements Flow.Subscription {
     public void cancel() {
         status = false;
     }
+
+
 }

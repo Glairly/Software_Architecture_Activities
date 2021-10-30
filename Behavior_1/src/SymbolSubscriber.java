@@ -16,7 +16,7 @@ public class SymbolSubscriber extends StringSubscriber {
     @Override
     public void onNext(Object item) {
         try {
-            String valid = ((String) item).replaceAll("[a-zA-Z0-9]","");
+            String valid = ((String) item).replaceAll("[a-zA-Z0-9 ]","");
             if(!valid.equals(""))
                 super.onNext(item);
         } catch (Exception e) {

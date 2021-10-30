@@ -15,6 +15,7 @@ public abstract class StringSubscriber implements Flow.Subscriber {
 
     public void onSubscribe(Flow.Subscription subscription ) {
         this.subscription = subscription;
+        System.out.println(this.uid + " Subscribed.");
         subscription.request(1);
 
     }
