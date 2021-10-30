@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Flow;
 
@@ -14,7 +13,6 @@ public class StringPublisher implements Flow.Publisher {
         this.subscribers = new ArrayList<>();
     }
 
-
     @Override
     public void subscribe(Flow.Subscriber subscriber) {
         if(subscriber == null || subscribers.contains(subscriber))  subscriber.onError(new IllegalStateException());
@@ -24,7 +22,11 @@ public class StringPublisher implements Flow.Publisher {
     }
 
     public void unsubscribe(Flow.Subscriber subscriber) {
-        subscribers.remove(subscriber);
+        for(var s : subscribers){
+            if(s.containSub(subscriber)){
+                s.cancel();
+            }
+        }
     }
 
     public void submit(String state){

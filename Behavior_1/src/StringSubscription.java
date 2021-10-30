@@ -12,8 +12,12 @@ public class StringSubscription implements Flow.Subscription {
     }
 
     public void updates(Object item){
-        if(subscriber != null)
+        if(subscriber != null && status)
             subscriber.onNext(item);
+    }
+
+    public boolean containSub(Flow.Subscriber t) {
+        return this.subscriber == t;
     }
 
     @Override

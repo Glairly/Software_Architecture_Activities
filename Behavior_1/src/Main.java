@@ -14,15 +14,18 @@ public class Main {
         publisher.subscribe(s2);
         publisher.subscribe(s3);
 
+
         System.out.println("==========================");
-        publisher.submit("aBACAsd");
+        publisher.submit("Alphabet should received message");
+        publisher.unsubscribe(s1);
+        System.out.println("==========================");
+        publisher.submit("Alphabet should not received message");
         System.out.println("==========================");
         publisher.submit("+++123");
         System.out.println("==========================");
         publisher.submit("12345");
         System.out.println("==========================");
 
-        publisher.unsubscribe(s1);
 
     }
 }
