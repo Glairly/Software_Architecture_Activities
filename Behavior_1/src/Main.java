@@ -16,10 +16,10 @@ public class Main {
 
 
         System.out.println("==========================");
-        publisher.submit("Alphabet should received message");
+        publisher.submit("Alphabet should received this message");
         publisher.unsubscribe(s1);
         System.out.println("==========================");
-        publisher.submit("Alphabet should not received message");
+        publisher.submit("Alphabet should not received anymore message");
         System.out.println("==========================");
         publisher.submit("+++123");
         System.out.println("==========================");

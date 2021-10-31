@@ -37,8 +37,6 @@ public class StringPublisher implements Flow.Publisher {
     public void notifySubscribers(){
         for(var sub : subscribers){
               sub.updates(state);
-//            sub.onNext(this.state);
-//            sub.onComplete();
         }
     }
 }

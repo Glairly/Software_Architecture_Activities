@@ -12,8 +12,10 @@ public class StringSubscription implements Flow.Subscription {
     }
 
     public void updates(Object item){
-        if(subscriber != null && status)
+        if(subscriber != null && status) {
             subscriber.onNext(item);
+            subscriber.onComplete();
+        }
     }
 
     public boolean containSub(Flow.Subscriber t) {
@@ -22,11 +24,11 @@ public class StringSubscription implements Flow.Subscription {
 
     @Override
     public void request(long n) {
-        if(!status) return;
-
+//        if(!status) return;
         if (n < 0) {
             subscriber.onError(new IllegalArgumentException());
         } else {
+            status = true;
 //            if use async method this field should start observer
         }
     }
@@ -35,6 +37,5 @@ public class StringSubscription implements Flow.Subscription {
     public void cancel() {
         status = false;
     }
-
 
 }

@@ -31,7 +31,7 @@ public abstract class StringSubscriber implements Flow.Subscriber {
 
     public void onError(Throwable ex) { ex.printStackTrace(); }
     public void onComplete() {
-        System.out.println("Done");
+        System.out.println(this.uid + " received a signal.");
     }
 
 }
