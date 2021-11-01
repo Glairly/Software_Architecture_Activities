@@ -16,10 +16,10 @@ public class Main {
 
 
         System.out.println("==========================");
-        publisher.submit("Alphabet should received this message");
-        publisher.unsubscribe(s1);
+        publisher.submit("Alphabet should received only 10 words");
+        s1.renew(15);
         System.out.println("==========================");
-        publisher.submit("Alphabet should not received anymore message");
+        publisher.submit("Alphabet should received more 15 words");
         System.out.println("==========================");
         publisher.submit("+++123");
         System.out.println("==========================");

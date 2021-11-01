@@ -1,22 +1,35 @@
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.Flow;
+import java.util.regex.Pattern;
 
 public abstract class StringSubscriber implements Flow.Subscriber {
 
     private Flow.Subscription subscription;
+
+    public String getUid() {
+        return uid;
+    }
+
     private String uid;
     protected Consumer consumer;
+    protected String executor;
 
     public StringSubscriber(String uid) {
         this.uid = uid;
     }
 
-    public void onSubscribe(Flow.Subscription subscription ) {
+    public void renew(long n){
+        subscription.request(n);
+    }
+
+    public boolean valid(Object item){
+        return Pattern.matches(this.executor,(String) item);
+    }
+
+    public void onSubscribe(Flow.Subscription subscription) {
         this.subscription = subscription;
         System.out.println(this.uid + " Subscribed.");
-        subscription.request(1);
+        subscription.request(10);
 
     }
 
@@ -31,7 +44,7 @@ public abstract class StringSubscriber implements Flow.Subscriber {
 
     public void onError(Throwable ex) { ex.printStackTrace(); }
     public void onComplete() {
-        System.out.println(this.uid + " received a signal.");
+        System.out.println(this.uid + " received a message.");
     }
 
 }

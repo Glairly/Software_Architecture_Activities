@@ -2,19 +2,30 @@ import java.util.concurrent.Flow;
 
 public class StringSubscription implements Flow.Subscription {
 
-    private final Flow.Subscriber subscriber;
+    private final StringSubscriber subscriber;
+
+    private String cache;
+    private long n;
 
     private boolean status;
 
     StringSubscription(Flow.Subscriber subscriber) {
-        this.subscriber = subscriber;
+        this.subscriber = (StringSubscriber) subscriber;
         this.status = true;
+        this.cache = "";
     }
 
-    public void updates(Object item){
-        if(subscriber != null && status) {
-            subscriber.onNext(item);
-            subscriber.onComplete();
+    public void updates(String item){
+        if(!status) return;
+        if(this.cache.length() +  item.length() >= n) {
+            var data = (this.cache + item).substring(0, (int) this.n);
+            if (subscriber.valid(data)) {
+                subscriber.onNext(data);
+                subscriber.onComplete();
+                cancel();
+            }
+        }else {
+            cache += item;
         }
     }
 
@@ -25,17 +36,22 @@ public class StringSubscription implements Flow.Subscription {
     @Override
     public void request(long n) {
 //        if(!status) return;
+
         if (n < 0) {
             subscriber.onError(new IllegalArgumentException());
         } else {
             status = true;
+            this.n = n;
 //            if use async method this field should start observer
         }
     }
 
     @Override
     public void cancel() {
-        status = false;
+        if(status) {
+            status = false;
+            System.out.println(subscriber.getUid() + " subscription has expired.");
+        }
     }
 
 }
