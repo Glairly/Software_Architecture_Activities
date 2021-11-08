@@ -1,0 +1,55 @@
+@startuml strategy_patt
+class People{
+    +void setSortStrategy( sortStrategy)
+    +void addMember(Person )
+    +void print(PrintStream )
+    - List<Person>
+    - Strategy
+}
+
+class Person {
+    - String name;
+    - Integer age;
+    - Integer height;
+    - Integer weight;
+
+    + String getName()
+    + void setName(String )
+    + Integer getAge()
+    + void setAge(Integer )
+    + Integer getHeight()
+    + void setHeight(Integer )
+    + Integer getWeight()
+    + void setWeight(Integer )
+
+}
+
+
+interface Strategy{
+    + void customSort()
+}
+class AgeSortStrategy{
+    + void customSort()
+}
+
+class HeightSortStrategy{
+    + void customSort()
+}
+
+class NameSortStrategy{
+    + void customSort()
+}
+
+class WeightSortStrategy{
+    + void customSort()
+}
+
+
+
+AgeSortStrategy ..|> Strategy
+HeightSortStrategy ..|> Strategy
+NameSortStrategy ..|> Strategy
+WeightSortStrategy ..|> Strategy
+Person *-- People
+People o--> Strategy
+@enduml
